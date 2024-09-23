@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">LAB 2_MADT</string>
     <string name="word_counter">Word Counter</string>
+    <string name="name_text_field"> </string>
+    <string name="btn_count_text">Submit</string>
+    <string-array name="counting_options">
+        <item>Chars</item>
+        <item>Words</item>
+    </string-array>
 </resources>
