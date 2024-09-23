@@ -1,8 +1,12 @@
 package com.example.lab2_madt;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import textUtils.TextCounter;
+
 public class MainActivity extends AppCompatActivity {
 
+    EditText edUserInput;
+    Spinner spinnerCounting;
+    TextView tvResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        Spinner spinnerCounting = (Spinner) findViewById(R.id.spinnerCounting);
+        this.edUserInput = findViewById(R.id.edUserInput);
+        this.tvResult = findViewById(R.id.tvResult);
+        this.spinnerCounting = findViewById(R.id.spinnerCounting);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.counting_options,
@@ -31,5 +41,25 @@ public class MainActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCounting.setAdapter(adapter);
+    }
+
+    public void onBtnCountClick(View view) {
+
+
+        String[] countingOptions = getResources().getStringArray(R.array.counting_options);
+        String userInput = this.edUserInput.getText().toString();
+        if (userInput.isEmpty()) {
+            // empty checking toast
+            Toast.makeText(this, "Please enter some text", Toast.LENGTH_LONG).show();
+            return;  // Stop further processing
+        }
+
+        if(this.spinnerCounting.getSelectedItem().toString().equals(countingOptions[0])) {
+            int count = TextCounter.getCharsCount(userInput);
+            this.tvResult.setText(String.valueOf(count));
+        }
+        else {
+            Toast.makeText(this, "Counting Words", Toast.LENGTH_LONG).show();
+        }
     }
 }
