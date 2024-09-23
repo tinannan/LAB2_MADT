@@ -45,21 +45,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnCountClick(View view) {
 
-
+//getting text so it wont be hardcoded
         String[] countingOptions = getResources().getStringArray(R.array.counting_options);
         String userInput = this.edUserInput.getText().toString();
         if (userInput.isEmpty()) {
             // empty checking toast
             Toast.makeText(this, "Please enter some text", Toast.LENGTH_LONG).show();
-            return;  // Stop further processing
+            return;  // stop further processing
         }
-
+//if set to chars counting
         if(this.spinnerCounting.getSelectedItem().toString().equals(countingOptions[0])) {
             int count = TextCounter.getCharsCount(userInput);
             this.tvResult.setText(String.valueOf(count));
         }
+// words counting
         else {
-            Toast.makeText(this, "Counting Words", Toast.LENGTH_LONG).show();
+            int wordCount = TextCounter.getWordsCount(userInput);
+            this.tvResult.setText(String.valueOf(wordCount));
         }
     }
 }
